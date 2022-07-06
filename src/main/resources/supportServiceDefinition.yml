@@ -1,0 +1,234 @@
+openapi: 3.0.3
+info:
+  title: Support Service
+  description: |
+    This is a Support service API definition.
+    The API is used for support purpose
+  version: 2.0.1
+servers:
+  - description: Mock Server
+    url: 'http://192.168.18.220:1080/'
+# security:
+#   - ApiKeyAuth: []
+tags:
+  - name: Support
+paths:
+  /testService:
+    post:
+      operationId: test
+      tags:
+        - test Code
+      summary: To test a service
+      description: 'to POST information about customer including peron details and service info'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supportRequest'
+      responses:
+        '200':
+          description: Successfully recieve a request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponseData'
+        '404':
+          description: Error, NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseData'
+  /submitQuery:
+    post:
+      operationId: submitQuery
+      tags:
+        - Support
+      summary: For support purpose
+      description: 'to POST information about customer including query details and service info'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/supportRequest'
+      responses:
+        '200':
+          description: Successfully Recieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/successResponseData'
+        '404':
+          description: Error, NOT FOUND
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponseData'
+
+
+components:
+  schemas:
+    supportRequest:
+      title: Request Message Structure (main)
+      description: Request model for person and service information
+      properties:
+        requestData:
+          $ref: '#/components/schemas/requestData'
+
+    supportResponse:
+      title: Request Message Structure (main)
+      description: Request model for person and service information
+      properties:
+        SuccessResponseData:
+          $ref: '#/components/schemas/successResponseData'
+        ErrorResponseData:
+          $ref: '#/components/schemas/errorResponseData'
+
+    errorResponseData:
+      title: Error Response Structure (Main)
+      description: Response model to show when a request shows error
+      properties:
+        serviceInfo:
+          $ref: '#/components/schemas/serviceInfo'
+        error:
+          $ref: '#/components/schemas/error'
+
+    successResponseData:
+      title: Success Response Structure (Main)
+      description: Response model to show when a request is made successfully
+      properties:
+        payload:
+          $ref: '#/components/schemas/payload'
+        serviceInfo:
+          $ref: '#/components/schemas/serviceInfo'
+
+    payload:
+      title: Payload body and definition
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/status'
+
+    requestData:
+      title: Request Data structure
+      properties:
+        person:
+          $ref: '#/components/schemas/person'
+        serviceInfo:
+          $ref: '#/components/schemas/serviceInfo'
+
+    person:
+      title: Person structure
+      properties:
+        personDetails:
+          $ref: '#/components/schemas/personDetails'
+
+    personDetails:
+      title: Person detail definition
+      properties:
+        firstName:
+          type: string
+          example: Hanif
+        lastName:
+          type: string
+          example: Muhammad
+        email:
+          type: string
+          example: example@sth.com
+        mobileNumber:
+          type: string
+          example: "+92012345678910"
+        message:
+          type: string
+          example: "hello there"
+
+    serviceInfo:
+      title: Service info definition
+      properties:
+        iam:
+          type: string
+          example: Wso2
+        channelId:
+          type: string
+          example: DDDDD
+        accountProviderId:
+          type: string
+          example: eeeeee
+        userId:
+          type: string
+          example: dddd
+        countryId:
+          type: string
+          example: 12df
+        transactionId:
+          type: string
+          example: "00fee2e6-0e2b-4ebf-899c-35276592a13c"
+        origin:
+          type: string
+          example: postman
+        service:
+          type: string
+          example: support
+        instance:
+          type: string
+          example: EEEEEE
+        timestamp:
+          type: string
+          example: "2017-11-16T11:04:00Z"
+        location:
+          type: string
+          example: Pakistan❤️
+        activity:
+          type: string
+          example: "Registeration"
+        partyType:
+          type: string
+          example: support
+
+    status:
+      title: Status definition
+      properties:
+        message:
+          type: string
+          example: Message has been received
+
+    error:
+      title: Error definition
+      properties:
+        code:
+          type: integer
+          example: 404
+        id:
+          type: string
+          example: "1"
+        details:
+          type: string
+          example: HTTP Status will be NOT FOUND (CODE 404)
+        messagePointer:
+          type: string
+          example: " "
+
+    graphQlDaoResponse:
+      title: Graph QL Data Access Response Data structure
+      properties:
+        data:
+          $ref: '#/components/schemas/data'
+
+    data:
+      title: GraphQL Response Data
+      properties:
+        supportQuery:
+          title: status Object definition
+          $ref: '#/components/schemas/supportQuery'
+
+    supportQuery:
+      title: support query object definition
+      properties:
+        message:
+          type: string
+          example: message
+
+
+
+

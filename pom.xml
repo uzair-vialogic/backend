@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>digital.vialogic</groupId>
+        <artifactId>MasterArchetype</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../microservices-master-pom/pom.xml</relativePath> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>digital.vialogic</groupId>
+    <artifactId>SupportService</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>SupportService</name>
+    <description>This service is used to provide support feature for the Legal and Natural Entity.</description>
+    <dependencies>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <configuration>
+                    <inputSpec>${project.basedir}/src/main/resources/supportServiceDefinition.yml</inputSpec>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <repository>vialogic/${project.build.finalName}</repository>
+                    <tag>cluster1.2</tag>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>supportsvc</finalName>
+    </build>
+
+</project>
